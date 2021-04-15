@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+}
+
+.background {
+    height:100%;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    position:absolute;
+    background-image: url("/img/CEMEX_background.jpg")
+}
+
+.form-box {
+    width: 380px;
+    height: 500px;
+    background-color: white;
+    position: relative;
+    margin: 6% auto;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.button-box {
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+}
+
+.toggle-button {
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+}
+
+#buttons {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background-color: orangered;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.social-icon {
+    margin: 30px auto;
+    text-align: center;
+}
+
+.social-icon img{
+    width: 40px;
+    margin: 0 12px;
+    cursor: pointer;
+}
+
+.input-group {
+    top: 180px;
+    position: absolute;
+    width: 280px;
+    transition: 0.3s;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.submit-button {
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    background: orangered;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+}
+
+#Login {
+    left: 50px;
+}
+
+#Register {
+    left: 450px;
+}
+
+#Failure {
+    color: red;
+    font-size: 10px;
+    text-decoration: underline;
+}
