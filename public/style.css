@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+
+li, a, button {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #000000;
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 30px 5%;
+    background-color:#E0FFFF;
+}
+
+.logo {
+    margin-right: auto;
+    width: 10em;
+    height: 3em;
+}
+
+.nav_links {
+    list-style: none;
+}
+
+.nav_links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav_links li a {
+    transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+    color: #FF4500;
+}
+
+button {
+    color: white;
+    margin-left: 20px;
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    outline: none;
+}
+
+button:hover {
+    background-color: rgba(0, 136, 169, 0.8);
+}
+
+.User {
+    margin: 0;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    display: block;
+}
+
+.box-setting {
+    width: 12vh;
+    height: 4vh;
+    margin-right: 4%;
+    margin-top: -25px;
+    background-color: white;
+    border-radius: 15px;
+    border: 1px solid black;
+    float: right;
+    visibility: hidden;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    text-align: center;
+}
+
+.Logout {
+    margin-top: 5px;
+    color: red;
+    cursor: pointer;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 10fr);
+    grid-gap: 0px 40px;
+    font-family: "Montserrat", sans-serif;
+    margin: 50px;
+}
+
+.one-home {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: center;
+}
+
+.two-home {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: center;
+}
