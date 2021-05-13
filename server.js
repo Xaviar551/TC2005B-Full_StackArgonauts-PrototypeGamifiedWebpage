@@ -1,9 +1,41 @@
-const express=require('express')
-const cors=require('cors')
-const cookieParser=require('cookie-parser')
+const express=require('express');
+const cors=require('cors');
+const cookieParser=require('cookie-parser');
+const mysql = require('mysql');
 const app = express();
-const path = require('path');
 const router = express.Router();
+const port = 3000;
+
+//Create the conection with the database
+var conection = mysql.createConnection({
+	host: 'localhost',
+	database: 'cemex',
+	user: 'root',
+	password: ''
+});
+
+//Check the conection with the database
+conection.connect(function(error) {
+	if(error){
+		throw error;
+	} else {
+		console.log("successful conection");
+	}
+});
+
+/*
+//Create the query for the SQL
+conection.query('SELECT * FROM `cemex-datos`', function (error, res, fileds) {
+	if(error){
+		throw error;
+	}
+	res.forEach(res => {
+		console.log(res)
+	});
+
+});*/
+
+conection.end();
 
 app.use(cookieParser());
 app.use(express.json());
