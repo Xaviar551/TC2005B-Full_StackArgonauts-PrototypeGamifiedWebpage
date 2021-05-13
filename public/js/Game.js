@@ -19,11 +19,11 @@ var Display = true;
 
 auth.onAuthStateChanged(user => {
 	if(user){
-		account.innerHTML = '<button onClick="Desplegar()"><img src="/img/User_Box.png" class="User"></button>'
+		account.innerHTML = '<button onClick="Desplegar()"><img src="img/User_Box.png" class="User"></button>'
 		document.querySelector("button").style.padding = "5px 5px";
 		
 	} else {
-		account.innerHTML = '<a href="login.html"><button>Login</button></a>'
+		account.innerHTML = '<a href="login"><button>Login</button></a>'
 	}
 });
 
@@ -43,3 +43,4 @@ function Desplegar() {
 		Display = true;
 	}
 }
+

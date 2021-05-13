@@ -45,17 +45,17 @@ signup.addEventListener('submit', e => {
     const password = document.querySelector("#signupPassword").value;
     if(email.substring(email.search("@"), 14) === "@CEMEX.com"){
         auth
-            .createUserWithEmailAndPassword(email, password)
-            .then(() => {
-                signup.reset();
-                window.location.href = "/public/index.html";
-            })
-            .catch(error => {
-                console.log(error);
-                if(error.code === "auth/email-already-in-use"){
-                    Fail[0].innerText = "The email already in use"
-                }
-            })
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+            signup.reset();
+            window.location.href = "/";
+        })
+        .catch(error => {
+            console.log(error);
+            if(error.code === "auth/email-already-in-use"){
+                Fail[0].innerText = "The email already in use"
+            }
+        });
     } else {
         Fail[0].innerText = "El correo no es empresarial";
     }
@@ -66,21 +66,21 @@ signin.addEventListener('submit', e => {
     e.preventDefault();
     const email = document.querySelector("#signinEmail").value;
     const password = document.querySelector("#signinPassword").value;
-    if(email.substring(email.search("@"), 14) === "@CEMEX.com"){
+    if(email.substring(email.search("@")) === "@CEMEX.com"){
         auth
-            .signInWithEmailAndPassword(email, password)
-            .then(userCredential => {
-                signin.reset();
-                window.location.href = "/public/index.html";
-            })
-            .catch(error => {
-                if(error.code === "auth/wrong-password"){
-                    Fail[1].innerText = "Email or password are incorrect"
-                }
-                else if(error.code === "auth/user-not-found"){
-                    Fail[1].innerText = "Account doesn't exist";
-                }
-            });
+        .signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+            signin.reset();
+            window.location.href = "/";
+        })
+        .catch(error => {
+            if(error.code === "auth/wrong-password"){
+                Fail[1].innerText = "Email or password are incorrect"
+            }
+            else if(error.code === "auth/user-not-found"){
+                Fail[1].innerText = "Account doesn't exist";
+            }
+        });
     } else {
         Fail[1].innerText = "El correo no es empresarial";
     }
@@ -90,8 +90,8 @@ googleButton.addEventListener('click', () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
     .then(result => {
-        if(result.user.email.substring(result.user.email.search("@"), 14) === "@CEMEX.com"){
-            window.location.href = "/public/index.html";
+        if(result.user.email.substring(result.user.email.search("@")) === "@CEMEX.com"){
+            window.location.href = "/";
         } else {
             Fail[0].innerText = "El correo no es de la empresa CEMEX";
             Fail[1].innerText = "El correo no es de la empresa CEMEX";
@@ -107,14 +107,14 @@ googleButton.addEventListener('click', () => {
                     auth.signInWithEmailAndPassword(email, password).then(function(result) {
                         return result.user.linkWithCredential(pendingCred);
                     }).then(function() {
-                        window.location.href = "/public/index.html";
+                        window.location.href = "/";
                     });
                     return;
                 }
                 var provider = getProviderForProviderId(methods[0]);
                 auth.signInWithPopup(provider).then(function(result) {
                     result.user.linkAndRetrieveDataWithCredential(pendingCred).then(function(usercred) {
-                        window.location.href = "/public/index.html";
+                        window.location.href = "/";
                     });
                 });
             });
@@ -127,8 +127,8 @@ faceButton.addEventListener('click', e => {
     const provider = new firebase.auth.FacebookAuthProvider();
     auth.signInWithPopup(provider)
         .then(result => {
-            if(result.user.email.substring(result.user.email.search("@"), 14) === "@CEMEX.com"){
-                window.location.href = "/public/index.html";
+            if(result.user.email.substring(result.user.email.search("@")) === "@CEMEX.com"){
+                window.location.href = "/";
             } else {
                 Fail[0].innerText = "El correo no es de la empresa CEMEX";
                 Fail[1].innerText = "El correo no es de la empresa CEMEX";
@@ -144,14 +144,14 @@ faceButton.addEventListener('click', e => {
                         auth.signInWithEmailAndPassword(email, password).then(function(result) {
                             return result.user.linkWithCredential(pendingCred);
                         }).then(function() {
-                            window.location.href = "/public/index.html";
+                            window.location.href = "/";
                         });
                         return;
                     }
                     var provider = getProviderForProviderId(methods[0]);
                     auth.signInWithPopup(provider).then(function(result) {
                         result.user.linkAndRetrieveDataWithCredential(pendingCred).then(function(usercred) {
-                            window.location.href = "/public/index.html";
+                            window.location.href = "/";
                         });
                     });
                 });
