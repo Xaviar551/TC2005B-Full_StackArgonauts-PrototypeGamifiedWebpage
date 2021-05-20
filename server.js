@@ -5,66 +5,34 @@ const mysql = require('mysql');
 const app = express();
 const router = express.Router();
 const port = 3000;
+const EmployeeController = require('./controller/Employee');
+let EmployeeModel = require('./models/Employee.js');
 
-//Create the conection with the database
-var conection = mysql.createConnection({
-	host: 'localhost',
-	database: 'cemex',
-	user: 'root',
-	password: ''
-});
 
-//Check the conection with the database
-conection.connect(function(error) {
-	if(error){
-		throw error;
-	} else {
-		console.log("successful conection");
-	}
-});
-
-/*
-//Create the query for the SQL
-conection.query('SELECT * FROM `cemex-datos`', function (error, res, fileds) {
-	if(error){
-		throw error;
-	}
-	res.forEach(res => {
-		console.log(res)
-	});
-
-});*/
-
-conection.end();
-
-app.use(cookieParser());
-app.use(express.json());
-app.use(cors());
-app.use(express.urlencoded({extended: true}));
-
-app.use(express.static('public'));
-app.use('/css', express.static(__dirname + 'public/css'));
-app.use('/js', express.static(__dirname + 'public/js'));
-app.use('/img', express.static(__dirname + 'public/img'));
-
-app.set('views', './views');
-app.set('view engine', 'ejs');
-
-app.get('/', (req, res) => {
-	res.render('index');
-});
-
-app.get('/About', (req, res) => {
-	res.render('About');
-});
-
-app.get('/Game', (req, res) => {
-	res.render('Game');
-});
-
-app.get('/Login', (req, res) => {
-	res.render('login');
-});
-
-app.use('/', router);
-app.listen(3000);
+let init_routes = (app, controllerEmployee) => {
+  app.use(cookieParser());
+  app.use(express.json());
+  app.use(cors());
+  app.use(express.urlencoded({extended: true}));
+  
+  app.use(express.static('public'));
+  app.use('/css', express.static(__dirname + 'public/css'));
+  app.use('/js', express.static(__dirname + 'public/js'));
+  app.use('/img', express.static(__dirname + 'public/img'));
+  
+  app.set('views', './views');
+  app.set('view engine', 'ejs');
+  app.get('/', async (req, res) => { 
+    let params = Object.assing({},req.params, req.body, req.query)
+    let employeeData = await controllerEmployee.get(params)
+    res.render('index', employeeData); 
+  });
+  app.get('/About', (req, res) => { res.render('About'); });
+  app.get('/Game', (req, res) => {res.render('Game'); });
+  app.get('/Login', (req, res) => { res.render('login'); });
+  app.use('/', router);
+  app.listen(port, () => {console.log(`The server is in: localhost:${port}`)});
+}
+let employeeModel = new EmployeeModel()
+let employeeController = new EmployeeController(employeeModel)
+init_routes(app, employeeController)

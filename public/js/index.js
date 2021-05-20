@@ -1,5 +1,6 @@
+
 const firebaseConfig = {
-  	apiKey: "AIzaSyBCUt492raID9lhXunVhqspS3t3mFKBnNQ",
+  apiKey: "AIzaSyBCUt492raID9lhXunVhqspS3t3mFKBnNQ",
 	authDomain: "cemex-fdbff.firebaseapp.com",
 	databaseURL: "https://cemex-fdbff-default-rtdb.firebaseio.com",
 	projectId: "cemex-fdbff",
@@ -43,3 +44,37 @@ function Desplegar() {
 	}
 }
 
+
+//------------------------ Pie chart --------------------------
+//bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, histogram, scatte
+let drawChart = (employees) => {
+	return () => {
+		let epmloyeeData = [['Nombre', 'Edad']]
+		employees.forEach(employee => {
+			epmloyeeData.push([employee.name, employee.age])
+		});
+		// var data = google.visualization.arrayToDataTable([
+		// 	//{type: 'string', lable: 'Nombre'}, {type: 'number', lable: 'Edad'}],
+		// 	['Nombre', 'Edad'],
+		// 	['erick', 19],
+		// 	['juve', 30]
+		// ]);
+		let data = google.visualization.arrayToDataTable(epmloyeeData)
+		var options = {
+			title: 'Que onda'
+		};
+	
+		// ------ start of google sample
+		// var data = new google.visualization.DataTable();
+		// data.addColumn('string', 'Element');
+		// data.addColumn('number', 'Percentage');
+		// data.addRows([
+		// 	['Nitrogen', 0.78],
+		// 	['Oxygen', 0.21],
+		// 	['Other', 0.01]
+		// ]);
+		// ----- end of google sample
+		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		chart.draw(data, options);
+	}
+}
