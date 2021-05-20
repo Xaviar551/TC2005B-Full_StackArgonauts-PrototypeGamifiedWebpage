@@ -1,5 +1,6 @@
+
 const firebaseConfig = {
-  	apiKey: "AIzaSyBCUt492raID9lhXunVhqspS3t3mFKBnNQ",
+  apiKey: "AIzaSyBCUt492raID9lhXunVhqspS3t3mFKBnNQ",
 	authDomain: "cemex-fdbff.firebaseapp.com",
 	databaseURL: "https://cemex-fdbff-default-rtdb.firebaseio.com",
 	projectId: "cemex-fdbff",
@@ -43,90 +44,37 @@ function Desplegar() {
 	}
 }
 
-//Examples to create a chart
+
 //------------------------ Pie chart --------------------------
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-	var data = google.visualization.arrayToDataTable([
-		['Task', 'Hours per Day'],
-		['Work',     11],
-		['Eat',      2],
-		['Commute',  2],
-		['Watch TV', 2],
-		['Sleep',    7]]);
-	var options = {
-		title: 'My Daily Activities'
-	};
-	var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-	chart.draw(data, options);
-}
-
-//------------------- Histogram -------------------------------
-google.charts.load("current", {'packages': ["corechart"]});
-google.charts.setOnLoadCallback(drawHist);
-function drawHist() {
-	var data = google.visualization.arrayToDataTable([
-		['Quarks', 'Leptons', 'Gauge Bosons', 'Scalar Bosons'],
-		[2/3, -1, 0, 0],
-		[2/3, -1, 0, null],
-		[2/3, -1, 0, null],
-		[-1/3, 0, 1, null],
-		[-1/3, 0, -1, null],
-		[-1/3, 0, null, null],
-		[-1/3, 0, null, null]
-	]);
+//bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, histogram, scatte
+let drawChart = (employees) => {
+	return () => {
+		let epmloyeeData = [['Nombre', 'Edad']]
+		employees.forEach(employee => {
+			epmloyeeData.push([employee.name, employee.age])
+		});
+		// var data = google.visualization.arrayToDataTable([
+		// 	//{type: 'string', lable: 'Nombre'}, {type: 'number', lable: 'Edad'}],
+		// 	['Nombre', 'Edad'],
+		// 	['erick', 19],
+		// 	['juve', 30]
+		// ]);
+		let data = google.visualization.arrayToDataTable(epmloyeeData)
+		var options = {
+			title: 'Que onda'
+		};
 	
-	var options = {
-		title: 'Charges of subatomic particles',
-		legend: { position: 'top', maxLines: 2 },
-		colors: ['#5C3292', '#1A8763', '#871B47', '#999999'],
-		interpolateNulls: false,
-	};
-	
-	var visualization = new google.visualization.Histogram(document.getElementById('Histogram'));
-	visualization.draw(data, options);
-}
-
-
-/*------------------------- Line chart ------------------------- */
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawLine);
-
-function drawLine() {
-	var data = google.visualization.arrayToDataTable([
-		['Year', 'Sales', 'Expenses'],
-		['2004',  1000,      400],
-		['2005',  1170,      460],
-		['2006',  660,       1120],
-		['2007',  1030,      540]
-	]);
-
-	var options = {
-		title: 'Company Performance',
-		legend: { position: 'bottom' }
-	};
-
-	var chart = new google.visualization.LineChart(document.getElementById('Line-chart'));
-	chart.draw(data, options);
-}
-
-
-//--------------- Datos en tiempo real -----------------
-function initialize() {
-	var opts = {sendMethod: 'auto'};
-	var query = new google.visualization.Query('http://localhost/phpmyadmin/index.php?route=/database/structure&server=1&db=prueba', opts);
-	query.setQuery('SELECT edad, sum(Hijos) FROM empleados_datos GROUP BY edad')
-	query.send(handleQueryResponse);
-}
-function handleQueryResponse(response) {
-	if (response.isError()) {
-		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-	  	return;
+		// ------ start of google sample
+		// var data = new google.visualization.DataTable();
+		// data.addColumn('string', 'Element');
+		// data.addColumn('number', 'Percentage');
+		// data.addRows([
+		// 	['Nitrogen', 0.78],
+		// 	['Oxygen', 0.21],
+		// 	['Other', 0.01]
+		// ]);
+		// ----- end of google sample
+		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		chart.draw(data, options);
 	}
-  
-	var data = response.getDataTable();
-	var chart = new google.visualization.PieChart(document.getElementById('realtime'));
-	chart.draw(data, {width: 400, height: 240, is3D: true});
 }
