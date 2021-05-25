@@ -22,10 +22,15 @@
 	<div class="box-setting"><div class="Logout">Logout</div></div>
 
 	<!--Chart of the data from the database -->
-	<div id="piechart" style="width: 640px; height: 360px;"></div>
-	<div id="Histogram" style="width: 640px; height: 360px;"></div>
+	<section class="wrapper">
+		<div class="one-home">
+			<div id="piechart" style="width: 640px; height: 360px;"></div>
+		</div>
+		<div class="two-home">
+			<div id="Histogram" style="width: 640px; height: 360px;"></div>
+		</div>
+	</section>
 	<div id="Line-chart" style="width: 950px; height: 484px;"></div>
-	<div id="realtime"></div>
 
 <!-- Script -->
 <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
@@ -35,19 +40,18 @@
 <script src="js/index.js"></script>
 <script>
 	let chartsLoadPromise = google.charts.load('current', {'packages':['corechart']});
-	// because google.charts.load return a promise we can draw once the load finish
-	// chartsLoadPromise.then(_result => {
-	// 	drawChart()
-	// })
-	// .catch(err => {
-	// 	console.error(err)
-	// })
+	/* because google.charts.load return a promise we can draw once the load finish
+	chartsLoadPromise.then(_result => {
+		drawChart()
+	})
+	.catch(err => {
+		console.error(err)
+	}) */
 
 	// once google.charts.load finish setOnLoadCallback will execute function argument call back
-	// JSON.stringify(employees) => {name: juve, age: 30}
-	// JSON.parse => {name: juve, age: 30} as json object
-	google.charts.setOnLoadCallback(drawChart(JSON.parse('<%- JSON.stringify(employees) %>')));
-
+	google.charts.setOnLoadCallback(Pie_drawChart(JSON.parse('<%- JSON.stringify(ID_creator_proyect.employees) %>')));
+	google.charts.setOnLoadCallback(Histogram_drawChart(JSON.parse('<%- JSON.stringify(Issue_total.Estatus_total) %>')));
+	google.charts.setOnLoadCallback(Line_drawChart(JSON.parse('<%- JSON.stringify(Not_closed.Not_closed_total) %>')));
 </script>
 </body> 
 </html>

@@ -110,3 +110,8 @@ button:hover {
     grid-row: 1;
     text-align: center;
 }
+
+#Line-chart{
+    display: block;
+    margin: 0 auto;
+}
