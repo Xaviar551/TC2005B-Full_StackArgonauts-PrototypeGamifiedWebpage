@@ -1,4 +1,4 @@
-
+/*
 const firebaseConfig = {
 	apiKey: "AIzaSyBCUt492raID9lhXunVhqspS3t3mFKBnNQ",
 	  authDomain: "cemex-fdbff.firebaseapp.com",
@@ -11,13 +11,16 @@ const firebaseConfig = {
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+  */
   
-  const auth = firebase.auth();
+  //const auth = firebase.auth();
   const account = document.querySelector(".log");
   const box_account = document.querySelector(".box-setting");
   const logout = document.querySelector(".Logout");
   var Display = true;
   
+/*
+  //TODO cambiar por 
   auth.onAuthStateChanged(user => {
 	  if(user){
 		  account.innerHTML = '<button onClick="Desplegar()"><img src="img/User_Box.png" class="User"></button>'
@@ -26,15 +29,25 @@ const firebaseConfig = {
 		  account.innerHTML = '<a href="login"><button>Login</button></a>'
 	  }
   });
-  
+  */
   logout.addEventListener('click', e =>{
 	  e.preventDefault();
 	  auth.signOut().then(() => {
 		  box_account.style.visibility = "hidden";
 	  });
   });
-  
-  function Desplegar() {
+ 
+
+
+
+// --- eventos ----
+
+
+
+
+
+
+	function Desplegar() {
 	  if(Display){
 		  box_account.style.visibility = "visible";
 		  Display = false;
@@ -42,7 +55,11 @@ const firebaseConfig = {
 		  box_account.style.visibility = "hidden";
 		  Display = true;
 	  }
-  }
+	}
+
+	function logout_clicked(){
+		window.location.href="/logout";
+	}
   
   
   //------------------------ Pie chart --------------------------

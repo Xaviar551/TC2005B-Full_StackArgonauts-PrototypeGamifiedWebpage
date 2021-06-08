@@ -1,3 +1,4 @@
+
 var x = document.querySelector("#Login");
 var y = document.querySelector("#Register");
 var z = document.querySelector("#buttons");
@@ -25,6 +26,7 @@ function login() {
 
 }
 
+/*
 const firebaseConfig = {
     apiKey: "AIzaSyBCUt492raID9lhXunVhqspS3t3mFKBnNQ",
     authDomain: "cemex-fdbff.firebaseapp.com",
@@ -38,7 +40,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-/* Create the account */
+ // Create the account 
 signup.addEventListener('submit', e => {
     e.preventDefault();
     const email = document.querySelector("#signupEmail").value;
@@ -61,7 +63,7 @@ signup.addEventListener('submit', e => {
     }
 });
 
-/* Sign in into the account */
+// Sign in into the account 
 signin.addEventListener('submit', e => {
     e.preventDefault();
     const email = document.querySelector("#signinEmail").value;
@@ -157,4 +159,4 @@ faceButton.addEventListener('click', e => {
                 });
             }
         });
-});
+});*/

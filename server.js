@@ -3,7 +3,11 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import EmployeeController from './controller/Employee.js'
 import EmployeeModel from './models/Employee.js';
+import session from 'express-session'
 import path from 'path'
+
+
+
 const app = express();
 const router = express.Router();
 const port = 3000;
@@ -27,14 +31,42 @@ let init_routes = (app, controllerEmployee) => {
     let Issue_total = await controllerEmployee.get_Issue_total();
     let Not_closed = await controllerEmployee.get_not_closed();
     console.log(Issue_total);
+    
     res.render('index', {ID_creator_proyect, Issue_total, Not_closed});
   });
-  app.get('/About', (req, res) => { res.render('About'); });
-  app.get('/Game', (req, res) => {res.render('Game'); });
-  app.get('/Login', (req, res) => { res.render('login'); });
+  app.get('/about', (req, res) => { res.render('About'); });
+  app.get('/game', (req, res) => {res.render('Game'); });
+  app.get('/login', (req, res) => { res.render('login'); });
   app.use('/', router);
   app.listen(port, () => {console.log(`The server is in: localhost:${port}`)});
+  
+  app.post('/login', async (req,res) =>{
+    console.log(req.body.email);
+    var sess=req.session;
+    var user=await employeeController.get_user(req.body.email);
+    console.log(user);
+
+
+
+    sess.user_id=1;
+    console.log(sess.user_id);
+    res.redirect('/About');
+  });
+
+  app.get('/logout', (req,res)=>{
+    req.session.destroy((err) => {
+        if(err) {
+            return console.log(err);
+        }
+      res.redirect('/login')
+    });
+  })
 }
+
+app.use(session({secret: 'we do not keep secrets yet',
+  resave: false,
+  saveUninitialized: true}));
+
 let employeeModel = new EmployeeModel()
 let employeeController = new EmployeeController(employeeModel)
 init_routes(app, employeeController)

@@ -21,6 +21,25 @@ export default class EmployeeModel {
   constructor() {
     this.mysqConnection = conection;
   }
+  Get_User(email){
+    // santize
+    /* let query = ""
+    for(attr in params){
+      query += attr+","
+    }
+    query.slice(0, -1) */
+    return new Promise((resolve, reject) =>{
+      // add where to query and pass params
+      //SELECT edad,SUM(Hijos) as Hijos_total FROM `empleados_datos` GROUP BY edad,Hijos
+      conection.query('SELECT ID_user as id, _password as password, email FROM cemexuser WHERE email=?',[email], function (error, res, fileds) {
+        if(error){
+          reject(error);
+        }
+        // TODO res should have in json format the employee data
+        resolve(res)
+      });
+    });
+  };
   ID_creator_proyect(params){
     // santize
     /* let query = ""
@@ -31,7 +50,7 @@ export default class EmployeeModel {
     return new Promise((resolve, reject) =>{
       // add where to query and pass params
       //SELECT edad,SUM(Hijos) as Hijos_total FROM `empleados_datos` GROUP BY edad,Hijos
-      conection.query('SELECT id_creator, count(i.project_key) AS \'Number_projects\' FROM Issue i GROUP BY id_creator', function (error, res, fileds) {
+      conection.query('SELECT id_creator, count(i.issue_key) AS \'Number_projects\' FROM Issue i GROUP BY id_creator', function (error, res, fileds) {
         if(error){
           reject(error);
         }

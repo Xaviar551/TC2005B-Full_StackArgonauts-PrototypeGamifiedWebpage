@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | CEMEX</title>
     <link rel="stylesheet" href="css/login.css">
+    
 </head>
 <body>
     <div class="background">
@@ -19,20 +20,22 @@
                 <img src="img/Google.png" id="google">
                 <img src="img/Facebook.png" id="facebook">
             </div>
-            <form id="Register" class="input-group">
+            <form id="Register" class="input-group" action="/register" method="post">
                 <input type="email" class="input-field" id="signupEmail" placeholder="Email" required>
                 <input type="password" class="input-field" id="signupPassword"  placeholder="Password" required minlength="6">
                 <span class="Failure"></span>
                 <button type="submit" class="submit-button">Register</button>
             </form>
-            <form id="Login" class="input-group">
-                <input type="email" class="input-field" id="signinEmail" placeholder="Email" required>
-                <input type="password" class="input-field" id="signinPassword" placeholder="Password" required>
+            <form id="Login" class="input-group" action="/login" method="post">
+                <input type="email" class="input-field" id="email" placeholder="Email" required>
+                <input type="password" class="input-field" id="password" placeholder="Password" required>
                 <span class="Failure"></span>
                 <button type="submit" class="submit-button">Log in</button>
             </form>
         </div>
     </div>
+    
+    
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
     <script src="js/login.js"></script>

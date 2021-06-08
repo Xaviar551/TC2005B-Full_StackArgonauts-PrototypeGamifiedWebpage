@@ -12,4 +12,7 @@ export default class EmployeeController {
   async get_not_closed(){
     return this.employee.not_closed();
   }
+  async get_user(email){
+    return this.employee.Get_User(email);
+  }
 }
