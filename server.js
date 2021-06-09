@@ -25,8 +25,11 @@ let init_routes = (app, controllerEmployee) => {
   
   app.set('views', './views');
   app.set('view engine', 'ejs');
-  app.get('/', async (req, res) => { 
-    let params = Object.assign({},req.params, req.body, req.query)
+  app.get('/', async (req, res) => {
+    if(!req.session.user_id)
+      return res.redirect('/login');
+
+    let params = Object.assign({},req.params, req.body, req.query);
     let ID_creator_proyect = await controllerEmployee.get_ID_creator_proyect(params);
     let Issue_total = await controllerEmployee.get_Issue_total();
     let Not_closed = await controllerEmployee.get_not_closed();
@@ -34,23 +37,49 @@ let init_routes = (app, controllerEmployee) => {
     
     res.render('index', {ID_creator_proyect, Issue_total, Not_closed});
   });
-  app.get('/about', (req, res) => { res.render('About'); });
-  app.get('/game', (req, res) => {res.render('Game'); });
-  app.get('/login', (req, res) => { res.render('login'); });
+  app.get('/about', (req, res) => {
+    if(!req.session.user_id)
+      return res.redirect('/login');
+    res.render('About');
+  });
+  app.get('/game', (req, res) => {
+    if(!req.session.user_id)
+      return res.redirect('/login');
+
+    res.render('Game');
+  });
+  app.get('/login', (req, res) => { res.render('login',{login_error: ''}); });
   app.use('/', router);
   app.listen(port, () => {console.log(`The server is in: localhost:${port}`)});
   
   app.post('/login', async (req,res) =>{
-    console.log(req.body.email);
     var sess=req.session;
-    var user=await employeeController.get_user(req.body.email);
-    console.log(user);
+    var entered_email=req.body.email;
+    var entered_pass=req.body.password;
+    var user=(await employeeController.get_user(req.body.email));
 
+    if(user.length==1){
+      if(user[0].email==entered_email && user[0].password==entered_pass){
+        sess.user_id=user[0].id;
+        return res.redirect('/');
+      }
+    }
+    // show error message
+    res.render('login',{login_error: 'Verifique sus credenciales'});
+  });
+  app.post('/register', async (req,res) =>{
+    var sess=req.session;
+    var user=(await employeeController.get_user(req.body.email))[0];
 
+    // TODO: verify unique email and password, create
+    // new user, and sign in
+    if(user.length==0){
+      
+      return res.redirect('/');
+      
+    }
 
-    sess.user_id=1;
-    console.log(sess.user_id);
-    res.redirect('/About');
+    // run if all is well
   });
 
   app.get('/logout', (req,res)=>{
@@ -58,9 +87,9 @@ let init_routes = (app, controllerEmployee) => {
         if(err) {
             return console.log(err);
         }
-      res.redirect('/login')
+        res.redirect('/login')
     });
-  })
+  });
 }
 
 app.use(session({secret: 'we do not keep secrets yet',
