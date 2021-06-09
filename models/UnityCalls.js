@@ -102,4 +102,19 @@ export default class UnityCallsModel {
             );
         });
     }
+
+    User_History() {
+        return new Promise((resolve, reject) => {
+            connection.query(
+                "SELECT * FROM {NOMBRE DE TABLA}",
+                [],
+                function (error, res) {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve(res);
+                }
+            );
+        });
+    }
 }

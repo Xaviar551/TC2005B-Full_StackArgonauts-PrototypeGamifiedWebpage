@@ -18,4 +18,7 @@ export default class UnityCallsController {
     async post_Mars_Building(params) {
         return this.dbObject.pMars_Building(params);
     }
+    async get_User_History() {
+        return this.dbObject.User_History();
+    }
 }

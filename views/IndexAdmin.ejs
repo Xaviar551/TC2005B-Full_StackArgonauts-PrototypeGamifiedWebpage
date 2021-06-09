@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home | CEMEX</title>
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <header>
+            <img src="img/CEMEXlogo.png" alt="" class="logo" />
+            <nav>
+                <ul class="nav_links">
+                    <li><a href="./">Home</a></li>
+                    <li><a href="./Game">Game</a></li>
+                    <li><a href="./About">About</a></li>
+                </ul>
+            </nav>
+            <div class="log">
+                <button onClick="Desplegar()" style="padding: 5px 5px">
+                    <img src="img/User_Box.png" class="User" />
+                </button>
+            </div>
+        </header>
+        <div class="box-setting" onClick="logout_clicked()">
+            <div class="Logout">Logout</div>
+        </div>
+        <!--Chart of the data from the database -->
+        <section class="wrapper">
+            <div class="one-home">
+                <div id="piechart" style="width: 640px; height: 360px"></div>
+            </div>
+            <div class="two-home">
+                <div id="Histogram" style="width: 640px; height: 360px"></div>
+            </div>
+        </section>
+        <div id="Line-chart" style="width: 950px; height: 484px"></div>
+        table>
+   <tr>
+      <th>Dimension</th><th>Quantity</th><th>Factory: rx</th>
+   </tr>
+
+   <% for (var i = 0; i < userHistory.length;){ 
+    <tr>
+      <td><%= userHistory[i].id %></td>
+      <td><%= userHistory[i].nombre %></td>
+    </tr>    
+   <% } %>
+</table>
+
+        <!-- Script -->
+        <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+        <script src="js/index.js"></script>
+        <script>
+            import UnityCallsController from "./controller/UnityCalls.js";
+            let unityCallsModel = new UnityCallsModel();
+            let unityCallsController = new UnityCallsController(unityCallsModel);
+
+            let chartsLoadPromise = google.charts.load("current", {
+                packages: ["corechart"],
+            });
+
+            let userHistory = JSON.parse(unityCallsController.get_User_History())
+            /* because google.charts.load return a promise we can draw once the load finish
+	chartsLoadPromise.then(_result => {
+		drawChart()
+	})
+	.catch(err => {
+		console.error(err)
+	}) */
+
+            // once google.charts.load finish setOnLoadCallback will execute function argument call back
+            google.charts.setOnLoadCallback(
+                Pie_drawChart(
+                    JSON.parse(
+                        "<%- JSON.stringify(ID_creator_proyect.employees) %>"
+                    )
+                )
+            );
+            google.charts.setOnLoadCallback(
+                Histogram_drawChart(
+                    JSON.parse(
+                        "<%- JSON.stringify(Issue_total.Estatus_total) %>"
+                    )
+                )
+            );
+            google.charts.setOnLoadCallback(
+                Line_drawChart(
+                    JSON.parse(
+                        "<%- JSON.stringify(Not_closed.Not_closed_total) %>"
+                    )
+                )
+            );
+        </script>
+    </body>
+</html>
